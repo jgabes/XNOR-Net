@@ -416,7 +416,8 @@ end
 ----------------------------------------------------------------------
 -- and train!
 --
-while true do
+while (epoch or 1) < 5 do
+    print('epoch: ' .. (epoch or 0))
    -- train/test
    train(trainData)
    test(testData)
@@ -428,4 +429,5 @@ while true do
       trainLogger:plot()
       testLogger:plot()
    end
+  
 end
