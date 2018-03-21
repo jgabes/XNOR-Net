@@ -138,17 +138,16 @@ def mnist_norm(X):
 
 
 def pong_norm(X):
-    X = tf.layers.conv2d(X, config.conv1, 5, 1, 'same', activation=tf.nn.relu)
+    X = tf.layers.conv2d(X, filters=config.conv1, kernel_size=5, padding='same', activation=tf.nn.relu)
     X = tf.layers.batch_normalization(X)
     X = tf.layers.max_pooling2d(X, 2, 2, 'same')
 
-    X = tf.layers.conv2d(X, config.conv2, 3, 1, 'same', activation=tf.nn.relu)
+    X = tf.layers.conv2d(X, filters=config.conv2, kernel_size=3, padding='same', activation=tf.nn.relu)
     X = tf.layers.batch_normalization(X)
     X = tf.layers.max_pooling2d(X, 2, 2, 'same')
 
     X = tf.reshape(X, [-1, int(X.shape[2] * X.shape[2] * X.shape[3])])
-    X = tf.layers.dense(X, config.FC1, activation=tf.nn.relu)
-    X = tf.layers.dense(X, config.num_actions)
-    X = tf.reshape(X, [-1, config.num_actions])
-    X = tf.nn.softmax(X)
+    X = tf.layers.dense(X, units=config.FC1, activation=tf.nn.relu)
+    X = tf.layers.dense(X, units=1)
+    X = tf.reshape(X, [-1, 1])
     return X
